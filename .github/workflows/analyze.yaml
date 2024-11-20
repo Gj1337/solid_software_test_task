@@ -1,0 +1,31 @@
+name: Analyze
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  FLUTTER_VERSION: 3.24.5
+
+jobs:
+  Analyzis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+  
+      - name: Flutter info
+        run: flutter --version && flutter pub get
+
+      - name: Lint
+        run: dart format --set-exit-if-changed . && dart analyze . 
+
+      - name: Test
+        run: flutter test

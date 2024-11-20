@@ -25,7 +25,6 @@ void main() {
     await tester.pumpAndSettle();
     final firstColor = getColor();
 
-
     await tester.tap(find.byType(InkWell));
     await tester.pumpAndSettle();
     final newColor = getColor();
